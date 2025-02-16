@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Plan;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 
-class PlanController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $plans=Plan::all();
-        return view('plan.index',compact('plans'));
+        return view('admin.login');
     }
 
     /**
@@ -35,15 +34,15 @@ class PlanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Plan $plan)
+    public function show(Admin $admin)
     {
-        return view('plan.show',compact('plan'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Plan $plan)
+    public function edit(Admin $admin)
     {
         //
     }
@@ -51,7 +50,7 @@ class PlanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Plan $plan)
+    public function update(Request $request, Admin $admin)
     {
         //
     }
@@ -59,7 +58,7 @@ class PlanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Plan $plan)
+    public function destroy(Admin $admin)
     {
         //
     }

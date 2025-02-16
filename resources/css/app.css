@@ -1,3 +1,7 @@
+/* Bootstrapを先に読み込み、その後にTailwind CSSを読み込む */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+

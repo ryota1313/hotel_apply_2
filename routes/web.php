@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PlanController;
+use App\Http\Controllers\TopController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('top');
+    return view('top.index');
 });
 
 Route::get('/dashboard', function () {
@@ -18,5 +21,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::resource('top',TopController::class);
+Route::resource('plan',PlanController::class);
+Route::resource('admin',PlanController::class);
 
 require __DIR__.'/auth.php';
