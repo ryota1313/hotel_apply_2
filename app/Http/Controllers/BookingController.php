@@ -49,7 +49,7 @@ class BookingController extends Controller
         'name' => 'required|max:20',
         'email' => 'required|email',
         'phone_number' => 'required|regex:/^0\d{9,10}$/',
-        'adress' => 'required|max:100', // adress → address に修正
+        'address' => 'required|max:100', // adress → address に修正
         'plan_id' => 'required|exists:plans,id',
         'check_in' => 'required|date_format:H:i',
         'check_out' => 'required|date_format:H:i|after:check_in',

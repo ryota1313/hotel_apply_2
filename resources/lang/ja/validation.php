@@ -22,7 +22,7 @@ return [
     'attributes' => [
         'name' => '名前',
         'email' => 'メールアドレス',
-        'adress' => '住所',
+        'address' => '住所',
         'phone_number' => '電話番号',
         'check_in' => 'チェックイン時間',
         'check_out' => 'チェックアウト時間',

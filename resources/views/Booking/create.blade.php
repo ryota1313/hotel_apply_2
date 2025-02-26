@@ -23,9 +23,9 @@
 </dd>
 
 <dt>住所</dt>
-<x-input-error :messages="$errors->get('adress')" />
+<x-input-error :messages="$errors->get('address')" />
 <dd>
-    <input type="text" name="adress" value="{{ old('adress') }}">
+    <input type="text" name="address" value="{{ old('address') }}">
 </dd>
 
 <dt>プラン選択</dt>
