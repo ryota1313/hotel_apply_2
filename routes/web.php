@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,6 +25,16 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('top',TopController::class);
 Route::resource('plan',PlanController::class);
-Route::resource('admin',PlanController::class);
+Route::resource('admin',AdminController::class);
+Route::resource('room',RoomController::class);
+// リソースルートからconfirmのルートを除外
+Route::resource('booking', BookingController::class)->except(['confirm']);
+
+// ルート定義を確認
+// routes/web.php で以下のように定義されているか確認
+Route::get('/booking/form', [BookingController::class, 'create'])->name('booking.create');
+Route::post('/booking/confirm', [BookingController::class, 'confirm'])->name('booking.confirm');
+Route::get('/booking/confirm', [BookingController::class, 'showConfirmPage'])->name('booking.confirm.show');
+
 
 require __DIR__.'/auth.php';
