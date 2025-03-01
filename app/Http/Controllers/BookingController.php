@@ -67,17 +67,17 @@ class BookingController extends Controller
     public function showConfirmPage(Request $request)
     {
         // セッションから予約データを取得
-        $bookingData = $request->session()->get('booking_data');
+        $data = $request->session()->get('booking_data');
 
-        if (!$bookingData) {
+        if (!$data) {
             return redirect()->route('booking.create')->withErrors('予約データがありません。');
         }
 
         // 関連データの取得
-        $plan = Plan::find($bookingData['plan_id']);
-        $room = Room::find($bookingData['room_id']);
+        $plan = Plan::find($data['plan_id']);
+        $room = Room::find($data['room_id']);
 
-        return view('booking.confirm', compact('bookingData', 'plan', 'room'));
+        return view('booking.confirm', compact('data', 'plan', 'room'));
     }
 
     public function show(Booking $booking)
