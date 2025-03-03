@@ -36,7 +36,31 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+                // セッションから予約データを取得
+                $data = $request->session()->get('booking_data');
+        
+                if (!$data) {
+                    return redirect()->route('booking.create')->withErrors('予約データがありません。');
+                }
+        
+                // 宿泊日数を計算
+                $checkIn = new \DateTime($data['check_in']);
+                $checkOut = new \DateTime($data['check_out']);
+                $nights = $checkOut->diff($checkIn)->days;
+        
+                // プランの料金を取得
+                $plan = Plan::find($data['plan_id']);
+                
+                // 合計金額を計算（プラン料金 × 泊数 × 人数）
+                $data['total_price'] = $plan->price * $nights * $data['people'];
+                
+                // 予約データをデータベースに保存
+                $booking = Booking::create($data);
+        
+                // セッションの予約データを削除
+                $request->session()->forget('booking_data');
+        
+                return redirect()->route('booking.show', $booking->id);
     }
 
     /**
@@ -51,8 +75,8 @@ class BookingController extends Controller
         'phone_number' => 'required|regex:/^0\d{9,10}$/',
         'address' => 'required|max:100', // adress → address に修正
         'plan_id' => 'required|exists:plans,id',
-        'check_in' => 'required|date_format:H:i',
-        'check_out' => 'required|date_format:H:i|after:check_in',
+        'check_in' => 'required|date_format:Y-m-d',
+        'check_out' => 'required|date_format:Y-m-d|after:check_in',
         'people' => 'required|integer|min:1|max:5',
         'room_id' => 'required|exists:rooms,id',
     ]);
@@ -82,7 +106,12 @@ class BookingController extends Controller
 
     public function show(Booking $booking)
     {
-        //
+        return view('booking.show', compact('booking'));
+    }
+
+    public function search()
+    {
+        return view('booking.search');
     }
 
     /**

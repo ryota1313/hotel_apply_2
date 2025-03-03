@@ -41,16 +41,16 @@
     </select>
 </dd>
 
-<dt>チェックイン時間</dt>
+<dt>チェックイン日</dt>
 <x-input-error :messages="$errors->get('check_in')" />
 <dd>
-    <input type="time" name="check_in" value="{{ old('check_in') }}">
+    <input type="date" name="check_in" value="{{ old('check_in') }}">
 </dd>
 
 <dt>チェックアウト時間</dt>
 <x-input-error :messages="$errors->get('check_out')" />
 <dd>
-    <input type="time" name="check_out" value="{{ old('check_out') }}">
+    <input type="date" name="check_out" value="{{ old('check_out') }}">
 </dd>
 
 <dt>部屋タイプ</dt>

@@ -23,7 +23,7 @@
                 </dd>
             <dt>プラン選択</dt>
                 <dd>
-                    <p class="mx-8">{{ $data['plan_id'] }}</p>
+                    <p class="mx-8">{{ $plan->title }}</p>
                 </dd>
             <dt>チェックイン時間</dt>
                 <dd>
@@ -35,7 +35,7 @@
                 </dd>
             <dt>部屋タイプ</dt>
                 <dd>
-                    <p class="mx-8">{{ $data['room_id'] }}</p>
+                    <p class="mx-8">{{ $room->room_type }}</p>
                 </dd>
             <dt>予約人数</dt>
                 <dd>

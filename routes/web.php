@@ -22,11 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
+//追加で作ったルート
 Route::get('/booking/form', [BookingController::class, 'create'])->name('booking.create');
 Route::post('/booking/confirm', [BookingController::class, 'confirm'])->name('booking.confirm');
 Route::get('/booking/confirm', [BookingController::class, 'showConfirmPage'])->name('booking.confirm.show');
+Route::get('/booking/search', [BookingController::class, 'search'])->name('booking.search');
 
 Route::resource('top',TopController::class);
 Route::resource('plan',PlanController::class);
@@ -34,6 +34,7 @@ Route::resource('admin',AdminController::class);
 Route::resource('room',RoomController::class);
 // リソースルートからconfirmのルートを除外
 Route::resource('booking', BookingController::class)->except(['confirm']);
+
 
 // ルート定義を確認
 // routes/web.php で以下のように定義されているか確認
