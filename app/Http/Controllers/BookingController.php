@@ -12,9 +12,24 @@ class BookingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('booking.index');
+        $request->validate([
+            'id' => 'required|exists:bookings,id',
+            'email' => 'required|email|exists:bookings,email',
+        ]);
+    
+        // IDとメールアドレスの完全一致で検索
+        $booking = Booking::where('id', $request->id)
+                          ->where('email', $request->email)
+                          ->first();
+    
+        // 該当の予約がなかった場合
+        if (!$booking) {
+            return redirect()->route('booking.search')->withErrors('予約情報が見つかりませんでした。');
+        }
+
+        return view('booking.index', compact('booking'));
     }
 
     /**
@@ -119,7 +134,9 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        //
+        $rooms = Room::all();
+        $plans = Plan::all();
+        return view('booking.edit', compact('booking','rooms','plans'));
     }
 
     /**
@@ -127,7 +144,30 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:20',
+            'email' => 'required|email',
+            'phone_number' => 'required|regex:/^0\d{9,10}$/',
+            'address' => 'required|max:100', // adress → address に修正
+            'plan_id' => 'required|exists:plans,id',
+            'check_in' => 'required|date_format:Y-m-d',
+            'check_out' => 'required|date_format:Y-m-d|after:check_in',
+            'people' => 'required|integer|min:1|max:5',
+            'room_id' => 'required|exists:rooms,id',
+        ]);
+            $checkIn = new \DateTime($validated['check_in']);
+            $checkOut = new \DateTime($validated['check_out']);
+            $nights = $checkOut->diff($checkIn)->days;
+            
+            // プランの料金を取得
+            $plan = Plan::find($validated['plan_id']);
+            
+                // 合計金額を計算（プラン料金 × 泊数 × 人数）
+            $validated['total_price'] = $plan->price * $nights * $validated['people'];
+        
+            $booking->update($validated);
+
+        return redirect()->route('booking.show', $booking->id);
     }
 
     /**
@@ -135,6 +175,7 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        //
+        $booking->delete();
+        return redirect()->route('top.index');
     }
 }

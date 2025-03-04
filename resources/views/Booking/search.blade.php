@@ -4,14 +4,16 @@
         <form action="{{ route('booking.index') }}" method="get">
             @csrf
             <dl>
-                <dt>予約者名</dt>
-                <dd class="mx-4"><input type="text" name="name" placeholder="予約者名"></dd>
                 <dt>メールアドレス</dt>
-                <dd class="mx-4"><input type="text" name="email" placeholder="メールアドレス"></dd>
+                <x-input-error :messages="$errors->get('email')" />
+                <dd class="mx-4 required"><input type="text" name="email" placeholder="メールアドレス" value="{{ old('email') }}"></dd>
                 <dt>予約番号</dt>
-                <dd class="mx-4"><input type="text" name="id" placeholder="予約番号"></dd>
+                <x-input-error :messages="$errors->get('id')" />
+                <dd class="mx-4 required"><input type="text" name="id" placeholder="予約番号" value="{{ old('id') }}"></dd>
             </dl>
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md my-4">検索</button>
         </form>
+        <a href="{{ route('booking.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md my-4">新規予約</a>
+        <a href="{{ route('top.index') }}" class="bg-secondary text-white px-4 py-2 rounded-md my-4">TOPへ戻る</a>
     </div>
 </x-app-layout>

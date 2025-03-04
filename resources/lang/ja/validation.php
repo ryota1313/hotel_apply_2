@@ -28,7 +28,8 @@ return [
         'check_out' => 'チェックアウト時間',
         'people' => '予約人数',
         'plan_id' => 'プラン',
-        'room_id' => '部屋'
+        'room_id' => '部屋',
+        'id' => '予約番号',
     ],
 ];
 

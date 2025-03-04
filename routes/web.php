@@ -28,6 +28,7 @@ Route::post('/booking/confirm', [BookingController::class, 'confirm'])->name('bo
 Route::get('/booking/confirm', [BookingController::class, 'showConfirmPage'])->name('booking.confirm.show');
 Route::get('/booking/search', [BookingController::class, 'search'])->name('booking.search');
 
+
 Route::resource('top',TopController::class);
 Route::resource('plan',PlanController::class);
 Route::resource('admin',AdminController::class);
