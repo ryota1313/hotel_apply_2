@@ -6,18 +6,23 @@
             @method('PUT')
             <dl>
                 <dt>名前</dt>
+                <x-input-error :messages="$errors->get('name')" />
                 <dd><input type="text" name="name" value="{{ $booking->name }}"></dd>
                 <dt>メールアドレス</dt>
+                <x-input-error :messages="$errors->get('email')" />
                 <dd><input type="text" name="email" value="{{ $booking->email }}"></dd>
                 <dt>電話番号</dt>
+                <x-input-error :messages="$errors->get('phone_number')" />
                 <dd><input type="text" name="phone_number" value="{{ $booking->phone_number }}"></dd>
                 <dt>住所</dt>
+                <x-input-error :messages="$errors->get('address')" />
                 <dd><input type="text" name="address" value="{{ $booking->address }}"></dd>
                 <dt>プラン</dt>
+                <x-input-error :messages="$errors->get('plan_id')" />
                     <dd>
-                        <select name="plan_id">
-                            <option value="" selected>プランを選択してください</option>
-                            @foreach($plans as $plan)
+                    <select name="plan_id">
+                        <option value="" selected>プランを選択してください</option>
+                        @foreach($plans as $plan)
                                 <option value="{{ $plan->id }}" {{ $booking->plan_id == $plan->id ? 'selected' : '' }}>
                                     {{ $plan->title }}
                                 </option>
@@ -25,10 +30,11 @@
                         </select>
                     </dd>
                 <dt>部屋タイプ</dt>
+                <x-input-error :messages="$errors->get('room_id')" />
                     <dd>
-                        <select name="room_id">
-                            <option value="" selected>部屋タイプを選択してください</option>
-                            @foreach($rooms as $room)
+                    <select name="room_id">
+                        <option value="" selected>部屋タイプを選択してください</option>
+                        @foreach($rooms as $room)
                                 <option value="{{ $room->id }}" {{ $booking->room_id == $room->id ? 'selected' : '' }}>
                                     {{ $room->room_type }}
                                 </option>
@@ -36,10 +42,13 @@
                         </select>
                     </dd>
                 <dt>チェックイン</dt>
+                <x-input-error :messages="$errors->get('check_in')" />
                 <dd><input type="date" name="check_in" value="{{ $booking->check_in }}"></dd>   
                 <dt>チェックアウト</dt> 
+                <x-input-error :messages="$errors->get('check_out')" />
                 <dd><input type="date" name="check_out" value="{{ $booking->check_out }}"></dd>
                 <dt>予約人数</dt>
+                <x-input-error :messages="$errors->get('people')" />
                 <dd>
                     <select name="people" value="{{ $booking->people }}">
                         @for($i = 1; $i <= 5; $i++)
