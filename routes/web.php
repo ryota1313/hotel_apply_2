@@ -7,15 +7,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 // トップページ
 Route::resource('top', TopController::class);
-
-// プラン、部屋のリソースルート
-Route::resource('plan', PlanController::class);
-Route::resource('room', RoomController::class);
-Route::resource('question',QuestionController::class);
 
 // 通常の予約関連ルート（confirmを除外したリソースコントローラー）
 Route::resource('booking', BookingController::class)->except(['create', 'store']);
@@ -23,6 +19,8 @@ Route::get('/booking/form', [BookingController::class, 'create'])->name('booking
 Route::post('/booking/confirm', [BookingController::class, 'confirm'])->name('booking.confirm');
 Route::get('/booking/confirm', [BookingController::class, 'showConfirmPage'])->name('booking.confirm.show');
 Route::get('/booking/search', [BookingController::class, 'search'])->name('booking.search');
+Route::get('/question/thankyou', [QuestionController::class, 'thankyou'])->name('question.thankyou');
+
 
 // 一般ユーザー認証後のみアクセス可能ルート
 Route::middleware(['auth'])->group(function () {
@@ -46,6 +44,11 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::resource('/', AdminController::class)->except('index');
 });
+
+// プラン、部屋のリソースルート
+Route::resource('plan', PlanController::class);
+Route::resource('room', RoomController::class);
+Route::resource('question',QuestionController::class);
 
 // 認証関連ルート（Laravel Breezeなどの認証）
 require __DIR__.'/auth.php';

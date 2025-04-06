@@ -12,7 +12,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        return view('question.index');
     }
 
     /**
@@ -20,24 +20,38 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('question.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    $validated = $request->validate([
+        'name' => 'required|max:20',
+        'email' => 'required|email',
+        'title' => 'required|string|max:255',
+        'body' => 'required',
+    ]); 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Question $question)
-    {
-        //
-    }
+    // データ保存
+    $question = Question::create($validated);
+
+    // 保存後に詳細ページへリダイレクト（ID渡す）
+    return redirect()->route('question.thankyou');
+}
+
+public function show(Question $question)
+{
+    return view('question.show');
+}
+
+public function thankyou()
+{
+    return view('question.thankyou');
+}
+
 
     /**
      * Show the form for editing the specified resource.

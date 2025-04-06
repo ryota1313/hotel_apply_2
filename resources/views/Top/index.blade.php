@@ -3,4 +3,4 @@
 <a href="#">空室カレンダー</a><br>
 <a href="{{ route('plan.index') }}">プラン一覧</a><br>
 <a href="{{ route('booking.search') }}">予約検索</a><br>
-<a href="#">お問い合わせ</a>
+<a href="{{ route('question.index') }}">お問い合わせ</a>
