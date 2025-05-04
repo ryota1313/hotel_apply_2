@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\AvailabilityController;
 use Illuminate\Support\Facades\Route;
 
 // トップページ
@@ -43,12 +44,14 @@ Route::prefix('admin')->group(function () {
 Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::resource('/', AdminController::class)->except('index');
+    Route::resource('availability',AvailabilityController::class);
 });
 
 // プラン、部屋のリソースルート
 Route::resource('plan', PlanController::class);
 Route::resource('room', RoomController::class);
 Route::resource('question',QuestionController::class);
+
 
 // 認証関連ルート（Laravel Breezeなどの認証）
 require __DIR__.'/auth.php';
